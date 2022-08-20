@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+    <form th:method="POST" th:action="@{/admin}" th:object="${user}">
+        <table>
+            <tr>
+                <td>Username</td>
+                <td><input type="text" th:field="*{username}" id="username"/></td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td><input type="password" th:field="*{password}" id="password"/></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</td>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td><input type="text" th:field="*{name}" id="name"/></td>
+            </tr>
+            <tr>
+                <td>Surname</td>
+                <td><input type="text" th:field="*{surName}" id="surname"/></td>
+            </tr>
+            <tr>
+                <td>Age</td>
+                <td><input type="text" th:field="*{age}" id="age"/></td>
+            </tr>
+            <tr>
+                <td>Role</td>
+                <td th:each="role : ${allRoles}">
+                    <input name="rolesId" type="checkbox" th:text="${role.getRoles()}" id="role" th:value="${role.id}" th:field="*{roles}"/>
+                </td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Сохранить"></td>
+            </tr>
+        </table>
+    </form>
+    <table>
+        <tr>
+            <td><form th:action="@{/admin}">
+                <button type="submit">Назад</button>
+            </form></td>
+            <td><form th:action="@{/logout}">
+                <button type="submit">Выход</button>
+            </form></td>
+        </tr>
+    </table>
+</body>
+</html>

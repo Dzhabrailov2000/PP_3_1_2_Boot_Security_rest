@@ -7,7 +7,6 @@
 <body>
 
 
-
 <div>
     <table th:align="center" th:border="1">
         <tr>
@@ -37,6 +36,23 @@
 <div>
     <table th:align="center">
         <tr>
+            <th>
+                <form th:align="center" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
+                    <button type="submit">Редактировать</button>
+                </form>
+            </th>
+
+            <th>
+                <form th:align="center" th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Удалить"/>
+                </form>
+            </th>
+            <th>
+                <form th:align="center" th:action="@{/admin}">
+                    <button type="submit">Назад</button>
+                </form>
+            </th>
+
             <th>
                 <form th:align="center" th:action="@{/logout}">
                     <button type="submit">Выход</button>
