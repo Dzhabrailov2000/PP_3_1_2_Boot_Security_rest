@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,16 +22,18 @@ import java.util.Set;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userDao;
     private final RoleRepository roleRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userDao, RoleRepository roleRepository) {
+    public UserServiceImpl(UserRepository userDao, RoleRepository roleRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.userDao = userDao;
         this.roleRepository = roleRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.findAll();
+        return userDao.getAllUsers();
     }
 
     @Override
@@ -53,7 +56,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public void updateUserById(long id, User user) {
         if (user.getPassword() != getUserById(id).getPassword()) {
-            user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
         userDao.save(user);
     }
@@ -61,7 +64,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void saveUser(User user) {
-        user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDao.save(user);
     }
 

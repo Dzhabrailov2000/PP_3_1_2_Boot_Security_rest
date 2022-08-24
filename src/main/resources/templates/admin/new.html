@@ -31,21 +31,21 @@
             <tr>
                 <td>Role</td>
                 <td th:each="role : ${allRoles}">
-                    <input name="rolesId" type="checkbox" th:text="${role.getRoles()}" id="role" th:value="${role.id}" th:field="*{roles}"/>
+                    <input name="rolesId" type="checkbox" th:text="${role.getName().substring(5)}" id="role" th:value="${role.id}" th:field="*{roles}"/>
                 </td>
             </tr>
             <tr>
-                <td><input type="submit" value="Сохранить"></td>
+                <td><input type="submit" value="Save"></td>
             </tr>
         </table>
     </form>
     <table>
         <tr>
             <td><form th:action="@{/admin}">
-                <button type="submit">Назад</button>
+                <button type="submit">Back</button>
             </form></td>
             <td><form th:action="@{/logout}">
-                <button type="submit">Выход</button>
+                <button type="submit">Logout</button>
             </form></td>
         </tr>
     </table>

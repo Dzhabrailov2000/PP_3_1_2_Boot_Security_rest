@@ -11,10 +11,10 @@
     <table th:border="1">
         <tr>
             <th>ID</th>
-            <th>ИМЯ</th>
-            <th>ФАМИЛИЯ</th>
-            <th>ВОЗРАСТ</th>
-            <th th:colspan="5" th:width="200">ДЕЙСТВИЯ</th>
+            <th>NAME</th>
+            <th>SURNAME</th>
+            <th>AGE</th>
+            <th th:colspan="5" th:width="200">ACTIONS</th>
         </tr>
 
         <tr th:each="user : ${users}">
@@ -24,17 +24,17 @@
             <td th:align="center" th:text="${user.getAge()}">age</td>
             <td>
                 <form th:align="center" th:action="@{/admin/{id}(id=${user.getId()})}">
-                    <button type="submit">ИФНО</button>
+                    <button type="submit">Info</button>
                 </form>
             </td>
             <td>
                 <form th:align="center" th:method="DELETE" th:action="@{/admin/{id}(id=${user.getId()})}">
-                    <button type="submit">Удалить</button>
+                    <button type="submit">Delete</button>
                 </form>
             </td>
             <td>
                 <form th:align="center" th:action="@{/admin/{id}/edit(id=${user.getId()})}">
-                    <button type="submit">Редактировать</button>
+                    <button type="submit">Edit</button>
                 </form>
             </td>
         </tr>
@@ -45,12 +45,12 @@
     <tr>
         <th>
             <form action="/admin/new" th:align="center">
-                <button type="submit">Новый пользователь</button>
+                <button type="submit">Add user</button>
             </form>
         </th>
         <th>
             <form th:align="center" th:action="@{/logout}">
-                <button type="submit">Выход</button>
+                <button type="submit">Logout</button>
             </form>
         </th>
     </tr>

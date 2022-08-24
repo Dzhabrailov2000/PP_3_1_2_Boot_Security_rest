@@ -32,7 +32,7 @@ public class AdminController {
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new User());
-        model.addAttribute("allRoles", userService.getAllUsers());
+        model.addAttribute("allRoles", userService.getAllRoles());
         return "admin/new";
     }
 
