@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.Arrays;
+
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -37,8 +39,8 @@ public class AdminController {
     }
 
     @PostMapping
-    public String create(@RequestParam("roles") String role, @ModelAttribute("user") User user) {
-        user.setRoles(userService.findRolesByName(role));
+    public String create(@RequestParam("roles") Integer[] roleId, @ModelAttribute("user") User user) {
+        user.setRoles(userService.findRolesById(roleId));
         userService.saveUser(user);
         return "redirect:/admin";
     }
@@ -51,8 +53,10 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@RequestParam("roles") String role, @ModelAttribute("user") User user, @PathVariable("id") long id) {
-        user.setRoles(userService.findRolesByName(role));
+    public String update(@RequestParam("roles") Integer[] roleId, @ModelAttribute("user") User user, @PathVariable("id") long id) {
+        System.out.println(Arrays.toString(roleId));
+
+//        user.setRoles(userService.findRolesById(roleId));
         userService.updateUserById(id, user);
         return "redirect:/admin";
     }

@@ -31,7 +31,7 @@
             <tr>
                 <td>Role</td>
                 <td th:each="role : ${allRoles}">
-                    <input name="rolesId" type="checkbox" th:text="${role.getName().substring(5)}" id="role" th:value="${role.id}" th:field="*{roles}"/>
+                    <input name="roleId" type="checkbox" th:text="${role.getName().substring(5)}" id="role" th:value="${role.id}" th:field="*{roles}"/>
                 </td>
             </tr>
             <tr>

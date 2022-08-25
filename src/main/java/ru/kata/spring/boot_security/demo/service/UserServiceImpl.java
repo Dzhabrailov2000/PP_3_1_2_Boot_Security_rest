@@ -74,11 +74,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Set<Role> findRolesByName(String RoleIds) {
+    public Set<Role> findRolesById(Integer[] roleIds) {
         Set<Role> roles = new HashSet<>();
         for (Role role:getAllRoles()){
-            if (RoleIds.contains(String.valueOf(role.getId()))) {
-                roles.add(role);
+            for (Integer roleById:roleIds) {
+                if (role.getId() == roleById){
+                    roles.add(role);
+                }
             }
         }
         return roles;
