@@ -54,9 +54,6 @@ public class AdminController {
 
     @PatchMapping("/{id}")
     public String update(@RequestParam("roles") Integer[] roleId, @ModelAttribute("user") User user, @PathVariable("id") long id) {
-        System.out.println(Arrays.toString(roleId));
-
-//        user.setRoles(userService.findRolesById(roleId));
         userService.updateUserById(id, user);
         return "redirect:/admin";
     }

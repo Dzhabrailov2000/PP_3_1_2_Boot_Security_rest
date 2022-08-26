@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User getUserById(long id) {
-        return userDao.findById(id).get();
+        return userDao.findById(id).orElse(null);
     }
 
     @Override
@@ -76,12 +76,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Set<Role> findRolesById(Integer[] roleIds) {
         Set<Role> roles = new HashSet<>();
-        for (Role role:getAllRoles()){
-            for (Integer roleById:roleIds) {
-                if (role.getId() == roleById){
-                    roles.add(role);
-                }
-            }
+        for (Integer role:roleIds){
+            roles.add(roleRepository.getById(Long.valueOf(role)));
         }
         return roles;
     }
