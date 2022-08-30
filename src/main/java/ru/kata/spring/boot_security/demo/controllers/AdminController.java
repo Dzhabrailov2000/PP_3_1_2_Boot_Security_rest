@@ -39,7 +39,7 @@ public class AdminController {
     }
 
     @PostMapping
-    public String create(@RequestParam("roles") Integer[] roleId, @ModelAttribute("user") User user) {
+    public String create(@RequestParam("roles") Long[] roleId, @ModelAttribute("user") User user) {
         user.setRoles(userService.findRolesById(roleId));
         userService.saveUser(user);
         return "redirect:/admin";
@@ -53,7 +53,8 @@ public class AdminController {
     }
 
     @PatchMapping("/{id}")
-    public String update(@RequestParam("roles") Integer[] roleId, @ModelAttribute("user") User user, @PathVariable("id") long id) {
+    public String update(@RequestParam("roles") Long[] roleId, @ModelAttribute("user") User user, @PathVariable("id") long id) {
+        user.setRoles(userService.findRolesById(roleId));
         userService.updateUserById(id, user);
         return "redirect:/admin";
     }

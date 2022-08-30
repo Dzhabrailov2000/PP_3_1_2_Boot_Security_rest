@@ -74,12 +74,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Set<Role> findRolesById(Integer[] roleIds) {
-        Set<Role> roles = new HashSet<>();
-        for (Integer role:roleIds){
-            roles.add(roleRepository.getById(Long.valueOf(role)));
-        }
-        return roles;
+    public Set<Role> findRolesById(Long[] roleIds) {
+        return roleRepository.getRolesById(roleIds);
     }
 
     @Override

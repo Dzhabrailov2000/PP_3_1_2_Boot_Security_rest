@@ -19,5 +19,5 @@ public interface UserService {
 
     List<Role> getAllRoles();
 
-    Set<Role> findRolesById (Integer[] RoleIds);
+    Set<Role> findRolesById (Long[] RoleIds);
 }

@@ -8,28 +8,27 @@
     <form th:method="POST" th:action="@{/admin}" th:object="${user}">
         <table>
             <tr>
-                <td>Username</td>
+                <th th:align="left">Username</th>
                 <td><input type="text" th:field="*{username}" id="username"/></td>
             </tr>
             <tr>
-                <td>Password</td>
+                <th th:align="left">Password</th>
                 <td><input type="password" th:field="*{password}" id="password"/></td>
-                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password error</td>
             </tr>
             <tr>
-                <td>Name</td>
+                <th th:align="left">Name</th>
                 <td><input type="text" th:field="*{name}" id="name"/></td>
             </tr>
             <tr>
-                <td>Surname</td>
+                <th th:align="left">Surname</th>
                 <td><input type="text" th:field="*{surName}" id="surname"/></td>
             </tr>
             <tr>
-                <td>Age</td>
+                <th th:align="left">Age</th>
                 <td><input type="text" th:field="*{age}" id="age"/></td>
             </tr>
             <tr>
-                <td>Role</td>
+                <th th:align="left">Role</th>
                 <td th:each="role : ${allRoles}">
                     <input name="roleId" type="checkbox" th:text="${role.getName().substring(5)}" id="role" th:value="${role.id}" th:field="*{roles}"/>
                 </td>
