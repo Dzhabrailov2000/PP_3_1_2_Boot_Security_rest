@@ -18,20 +18,22 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "surname")
-    private String surName;
-
-    @Column(name = "age")
-    private int age;
-
-    @Column(name = "username", unique = true)
+    @Column(name = "email", unique = true)
     private String username;
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "firstname")
+    private String firstname;
+
+    @Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "age")
+    private int age;
+
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -42,6 +44,10 @@ public class User implements UserDetails {
         return getRoles();
     }
 
+    @Override
+    public String getUsername() {
+        return username;
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;

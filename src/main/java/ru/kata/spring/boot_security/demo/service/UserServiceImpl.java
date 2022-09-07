@@ -13,43 +13,42 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.repositories.RoleRepository;
 import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
-    private final UserRepository userDao;
+    private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    public UserServiceImpl(UserRepository userDao, RoleRepository roleRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.userDao = userDao;
+    public UserServiceImpl(UserRepository userRepository, RoleRepository roleRepository, @Lazy BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @Override
     public List<User> getAllUsers() {
-        return userDao.getAllUsers();
+        return userRepository.getAllUsers();
     }
 
     @Override
     public User getUserById(long id) {
-        return userDao.findById(id).orElse(null);
+        return userRepository.findById(id).orElse(null);
     }
 
     @Override
     public User getUserByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     @Transactional
     @Override
     public void removeUserById(long id) {
-        userDao.deleteById(id);
+        userRepository.deleteById(id);
     }
 
     @Transactional
@@ -58,14 +57,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         if (user.getPassword() != getUserById(id).getPassword()) {
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         }
-        userDao.save(user);
+        userRepository.save(user);
     }
 
     @Transactional
     @Override
     public void saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        userDao.save(user);
+        userRepository.save(user);
     }
 
     @Override
@@ -80,7 +79,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }

@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.security.Principal;
+
 @Controller
-@RequestMapping("/users")
+@RequestMapping
 public class UsersController {
     private final UserService userService;
     @Autowired
@@ -18,9 +20,10 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public String getUserById(@AuthenticationPrincipal User user, Model model) {
+    @GetMapping("/user")
+    public String viewUser(Principal principal, Model model) {
+        User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
-        return "users/show";
+        return "viewUser";
     }
 }
