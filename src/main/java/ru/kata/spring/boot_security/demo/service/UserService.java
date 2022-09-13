@@ -19,5 +19,5 @@ public interface UserService {
 
     Set<Role> getAllRoles();
 
-    Set<Role> findRolesById (Long id);
+    Role findRolesById (Long id);
 }

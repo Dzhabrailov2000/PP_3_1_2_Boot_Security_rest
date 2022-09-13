@@ -10,6 +10,7 @@ import java.util.Set;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
-    @Query(value = "SELECT r FROM Role r WHERE r.id in :id")
-    Set<Role> getRolesById(@Param("id") Long integers);
+
+//    @Query(value = "SELECT r FROM Role r WHERE r.id in :id")
+//    Set<Role> getRolesById(@Param("id") Long integers);
 }

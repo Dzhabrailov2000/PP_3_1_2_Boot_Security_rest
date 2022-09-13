@@ -2,7 +2,7 @@ $(async function() {
     await thisUser();
 });
 async function thisUser() {
-    fetch("http://localhost:8080/api/viewUser")
+    fetch("http://localhost:8080/api/user")
         .then(res => res.json())
         .then(data => {
             // Добавляем информацию в шапку
@@ -18,7 +18,8 @@ async function thisUser() {
                 <td>${data.lastName}</td>
                 <td>${data.age}</td>
                 <td>${data.username}</td>
-                <td>${roles}</td>)`;
+                <td>${roles}</td>
+            </tr>)`;
             $('#userPanelBody').append(user);
         })
 }

@@ -13,15 +13,15 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
-public class AdminController {
+public class AdminRestController {
     private final UserService userService;
 
-    public AdminController(UserService userService) {
+    public AdminRestController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> showAllUsers() {
+    public ResponseEntity<List<User>> getUsers() {
         List<User> users = userService.getAllUsers();
         return users != null && !users.isEmpty()
                 ? new ResponseEntity<>(users, HttpStatus.OK)
@@ -29,7 +29,7 @@ public class AdminController {
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> showUser(@PathVariable Long id) {
+    public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.getUserById(id);
         return user != null
                 ? new ResponseEntity<>(user, HttpStatus.OK)
@@ -37,7 +37,7 @@ public class AdminController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<User> addNewUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         userService.saveUser(user);
         return new ResponseEntity<>(user, HttpStatus.CREATED);
     }
@@ -54,18 +54,20 @@ public class AdminController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/viewUser")
-    public ResponseEntity<User> showUser(Authentication auth) {
-        return new ResponseEntity<>((User) auth.getPrincipal(), HttpStatus.OK);
-    }
-
     @GetMapping("/roles")
-    public ResponseEntity<Set<Role>> getAllRoles() {
+    public ResponseEntity<Set<Role>> getRoles() {
         return new ResponseEntity<>(userService.getAllRoles(), HttpStatus.OK);
     }
 
     @GetMapping("/roles/{id}")
     ResponseEntity<User> getRoleById(@PathVariable("id") Long id){
         return new ResponseEntity<>(userService.getUserById(id), HttpStatus.OK);
+    }
+
+    // < ------ show table for user
+
+    @GetMapping("/user")
+    public ResponseEntity<User> getUserById(Authentication auth) {
+        return new ResponseEntity<>((User) auth.getPrincipal(), HttpStatus.OK);
     }
 }

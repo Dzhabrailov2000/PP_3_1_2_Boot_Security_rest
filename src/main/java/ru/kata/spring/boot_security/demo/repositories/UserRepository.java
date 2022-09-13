@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);
-    @Query(value = "select u from User u join fetch u.roles")
-    List<User> getAllUsers();
+//    @Query(value = "select u from User u join fetch u.roles")
+//    List<User> getAllUsers();
 }

@@ -15,6 +15,7 @@ import ru.kata.spring.boot_security.demo.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -33,7 +34,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        return userRepository.findAll();
     }
 
     @Override
@@ -55,7 +56,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Transactional
     @Override
     public void updateUserById(User user) {
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        if (!Objects.equals(user.getPassword(), findRolesById(user.getId()).getAuthority())) {
+            user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
         userRepository.save(user);
     }
 
@@ -72,8 +75,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public Set<Role> findRolesById(Long id) {
-        return roleRepository.getRolesById(id);
+    public Role findRolesById(Long id) {
+        return roleRepository.findById(id).orElse(null);
     }
 
     @Override

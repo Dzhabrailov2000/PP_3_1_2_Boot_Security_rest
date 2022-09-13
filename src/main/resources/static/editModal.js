@@ -12,7 +12,7 @@ async function showEditModal(id) {
     form.lastName.value = user.lastName;
     form.age.value = user.age;
     form.username.value = user.username;
-    form.password.value = user.password;
+    // form.password.value = user.password;
 
     // $('#rolesEditUser').empty();
 
